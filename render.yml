@@ -4,7 +4,7 @@
 
 services:
   - type: web
-    name: n8n-service
+    name: n8n-superdad
     runtime: image
     plan: free
 
@@ -80,5 +80,5 @@ services:
         value: true
 
 databases:
-  - name: n8n-db
+  - name: n8n-db-superdad
     plan: free
