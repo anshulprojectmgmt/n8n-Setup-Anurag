@@ -1,84 +1,74 @@
-# render.yaml
-# Deploy n8n on Render using the official n8n Docker image + Render Postgres.
-# This is mostly-free for testing, but Render Free Postgres expires after 30 days.
-
 services:
   - type: web
-    name: n8n-superdad
-    runtime: image
+    name: superdad-video-n8n
+    runtime: docker
     plan: free
 
-    image:
-      url: docker.io/n8nio/n8n:latest
-
     envVars:
-      # Required by Render/n8n
       - key: PORT
         value: 5678
 
-      # n8n listens on this port inside the container
       - key: N8N_PORT
         value: 5678
 
-      # Recommended timezone for India
       - key: GENERIC_TIMEZONE
         value: Asia/Kolkata
 
       - key: TZ
         value: Asia/Kolkata
 
-      # Important: Render will generate this once.
-      # Do not change it after workflows/credentials are created.
+      - key: N8N_PROTOCOL
+        value: https
+
       - key: N8N_ENCRYPTION_KEY
         generateValue: true
 
-      # Database settings
       - key: DB_TYPE
         value: postgresdb
 
       - key: DB_POSTGRESDB_DATABASE
         fromDatabase:
-          name: n8n-db
+          name: superdad-video-n8n-db
           property: database
 
       - key: DB_POSTGRESDB_HOST
         fromDatabase:
-          name: n8n-db
+          name: superdad-video-n8n-db
           property: host
 
       - key: DB_POSTGRESDB_PORT
         fromDatabase:
-          name: n8n-db
+          name: superdad-video-n8n-db
           property: port
 
       - key: DB_POSTGRESDB_USER
         fromDatabase:
-          name: n8n-db
+          name: superdad-video-n8n-db
           property: user
 
       - key: DB_POSTGRESDB_PASSWORD
         fromDatabase:
-          name: n8n-db
+          name: superdad-video-n8n-db
           property: password
 
-      # Security / production-friendly defaults
       - key: N8N_DIAGNOSTICS_ENABLED
         value: false
 
       - key: N8N_PERSONALIZATION_ENABLED
         value: false
 
-      # Keep execution history under control on free DB
       - key: EXECUTIONS_DATA_PRUNE
         value: true
 
       - key: EXECUTIONS_DATA_MAX_AGE
         value: 168
 
-      # Optional but useful
-      - key: N8N_VERSION_NOTIFICATIONS_ENABLED
-        value: true
+      - key: N8N_PAYLOAD_SIZE_MAX
+        value: 500
+
+      - key: N8N_FORMDATA_FILE_SIZE_MAX
+        value: 500
 
 databases:
-  - name: n8n-db
+  - name: superdad-video-n8n-db
     plan: free
