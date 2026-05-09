@@ -11,6 +11,9 @@ services:
       - key: N8N_PORT
         value: 5678
 
+      - key: NODES_EXCLUDE
+        value: "[]"
+
       - key: GENERIC_TIMEZONE
         value: Asia/Kolkata
 
