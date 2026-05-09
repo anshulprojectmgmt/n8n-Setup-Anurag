@@ -1,5 +1,5 @@
 FROM mwader/static-ffmpeg:8.1.1 AS ffmpeg-source
-# docker url-
+
 FROM docker.n8n.io/n8nio/n8n:latest
 
 USER root
@@ -13,6 +13,6 @@ RUN chmod +x /usr/local/bin/ffmpeg /usr/local/bin/ffprobe \
     && mkdir -p /automation/n8n-data/highlight_segments \
     && mkdir -p /automation/n8n-data/avatar_videos \
     && mkdir -p /automation/n8n-data/final_video \
-    && chown -R node:node /automation
+    && chmod -R 777 /automation
 
 USER node
